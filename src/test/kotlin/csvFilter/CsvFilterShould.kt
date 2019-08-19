@@ -10,7 +10,7 @@ class CsvFilterShould {
         val result = CsvFilter().filter(
                 listOf(headerLine, invoiceLine))
         assertThat(result).isEqualTo(
-                listOf(headerLine, invoiceLine));
+                listOf(headerLine, invoiceLine))
     }
 
     /*@Test
