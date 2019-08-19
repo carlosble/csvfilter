@@ -6,7 +6,15 @@ class CsvFilter {
         result.add(lines[0])
         val invoice = lines[1]
         val fields = invoice.split(',')
-        if (fields[4].isNullOrEmpty() || fields[5].isNullOrEmpty()){
+        val ivaFieldIndex = 4
+        val igicFieldIndex = 5
+        val ivaField = fields[ivaFieldIndex]
+        val igicField = fields[igicFieldIndex]
+        val decimalRegex = "\\d+(\\.\\d+)?".toRegex()
+        val taxFieldsAreMutuallyExclusive =
+            (ivaField.matches(decimalRegex) || igicField.matches(decimalRegex)) &&
+            (ivaField.isNullOrEmpty() || igicField.isNullOrEmpty())
+        if (taxFieldsAreMutuallyExclusive){
             result.add(lines[1])
         }
         return result.toList()
